@@ -1,0 +1,38 @@
+<h2 class="text-center">List With Async Pipe</h2>
+<table class="table">
+    <thead class="table table-dark">
+        <tr>
+            <th> ID </th>
+
+            <th> TITLE </th>
+            <th> PRICE </th>
+            <th> EXPIRY DATE </th>
+            <th> QUANTITY </th>
+            <th> IN STOCK </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of item$ | async">
+            <td>{{item.id}}</td>
+            <td>{{item.title}}</td>
+            <td>{{item.price }}</td>
+            <td>{{item.expiryDate }}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.inStock}}</td>
+            <!-- <td>
+                <ng-container *ngIf="p.IsAvaliable; then instock else outofstock">
+
+                </ng-container>
+                <ng-template #instock>
+                    <i class="fa fa-check" aria-hidden="true"></i>
+
+                </ng-template>
+                <ng-template #outofstock>
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    <button class="btn btn-default">Order Now</button>
+                </ng-template>
+            </td> -->
+
+        </tr>
+    </tbody>
+</table>

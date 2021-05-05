@@ -1,0 +1,51 @@
+<div class="container">
+    <h2 class="text-center">Updating Data To Api</h2>
+    <hr>
+    <div class="form-row" id="row1">
+        <div class="form-group col-md-3"></div>
+    <div class="form-group col-md-6">
+        <form (ngSubmit)='updatedata()' [formGroup]='updateproductform' novalidate class="form">
+            Id : <input formControlName='id' type="number" class="form-control" placeholder="Eg: 1">
+            <div class="alert alert-danger"
+                *ngIf="updateproductform?.get('id')?.hasError('required')&&updateproductform?.get('id')?.touched">Id Required
+            </div>
+            <br><br>
+            Title : <input formControlName='title' type="text" class="form-control" placeholder="Eg: Books">
+            <div class="alert alert-danger"
+                *ngIf="updateproductform?.get('title')?.hasError('required')&&updateproductform?.get('title')?.touched">Title Required
+            </div>
+            <br><br>
+            Quantity : <input formControlName='quantity' type="number" class="form-control" placeholder="Eg: 40">
+            <div class="alert alert-danger"
+            *ngIf="!updateproductform?.get('quantity')?.valid && updateproductform?.get('quantity')?.touched">Quantity Required</div>
+            <br><br>
+            Price : <input formControlName='price' type="number" class="form-control" placeholder="Eg: 70">
+            <div class="alert alert-danger"
+                *ngIf="!updateproductform?.get('price')?.valid && updateproductform?.get('price')?.touched && updateproductform?.get('price')?.errors?.priceerror">
+                Price Required And Should be between {{min}} to {{max}}
+            </div><br><br>
+            Color : <input formControlName='color' type="text" class="form-control" placeholder="Eg: red">
+            <div class="alert alert-danger"
+            *ngIf="!updateproductform?.get('color')?.valid &&updateproductform?.get('color')?.touched">Color Required</div>
+                <br><br>
+                ExpiryDate : <input formControlName='expiryDate' type="text" class="form-control" placeholder="Eg: dd--mm--yyyy">
+                <div class="alert alert-danger"
+                *ngIf="!updateproductform?.get('expiryDate')?.valid &&updateproductform?.get('expiryDate')?.touched">ExpiryDate Required</div>
+                <br><br>
+                InStock : <input formControlName='inStock' type="boolean" class="form-control" placeholder="Eg: true/false">
+                <div class="alert alert-danger"
+                *ngIf="!updateproductform?.get('inStock')?.valid &&updateproductform?.get('inStock')?.touched">Avaliability Required</div>
+                <br><br>
+            <!-- <button type="submit" [disabled]="updateproductform.invalid" class="btn btn-info">Update</button>&nbsp;&nbsp;
+            <button type="button" (click)='reset()' class="btn btn-danger">Reset</button> -->
+            <button type="submit" [disabled]="updateproductform.invalid" mat-fab color="accent"
+                    aria-label="Example icon button with a delete icon">
+                    <mat-icon>update</mat-icon></button>&nbsp;&nbsp;&nbsp;
+                    <button type="button" (click)='reset()' mat-fab color="warn"
+                        aria-label="Example icon button with a delete icon">
+                        <mat-icon>restart_alt</mat-icon></button>
+        </form>
+    </div>
+</div>
+
+</div>
