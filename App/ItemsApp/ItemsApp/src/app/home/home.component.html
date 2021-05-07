@@ -1,0 +1,22 @@
+<mat-tab-group>
+  <mat-tab label="Subscribe">
+    <h1 class="text-center">Fetching Data From Api</h1>
+    <hr>
+    <app-listwithobservable [items]='productsList'>
+    </app-listwithobservable>
+  </mat-tab>
+  <mat-tab label="Async">
+    <h1 class="text-center">Fetching Data From Api</h1>
+    <hr>
+    <app-listwithasyncpipe [item$]='productsList'>
+
+    </app-listwithasyncpipe>
+  </mat-tab>
+  <mat-tab label="Mat-Table">
+    <h1 class="text-center">Fetching Data From Api</h1>
+    <hr>
+    <app-material [items]='productsList'>
+
+    </app-material>
+  </mat-tab>
+</mat-tab-group>
