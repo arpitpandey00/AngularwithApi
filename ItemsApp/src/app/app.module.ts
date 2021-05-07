@@ -14,9 +14,31 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { AddtaskComponent } from './addtask/addtask.component';
 import { UpdatetaskComponent } from './updatetask/updatetask.component';
-import { DeletetaskComponent } from './deletetask/deletetask.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatTableModule} from '@angular/material/table';
+import { MaterialComponent } from './material/material.component';
+import { ShowProductComponent } from './show-product/show-product.component';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatCardModule} from '@angular/material/card';
+import { RouterModule, Routes } from '@angular/router';
+import { DeletetaskComponent } from './deletetask/deletetask.component';
+
+const Operations : Routes = [
+  {
+    path : 'update/:id',
+    component :UpdatetaskComponent
+  },
+  {
+    path : 'delete/:id',
+    component : DeletetaskComponent
+  },
+  {
+    path : 'showProduct/:id',
+    component : ShowProductComponent
+  },
+]
 
 @NgModule({
   declarations: [
@@ -25,21 +47,30 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     ListwithasyncpipeComponent,
     ListwithobservableComponent,
     AddtaskComponent,
+    DeletetaskComponent,
     UpdatetaskComponent,
-    DeletetaskComponent
+    MaterialComponent,
+    ShowProductComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+   
     MatSidenavModule,
     MatListModule,
     MatIconModule,
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTabsModule,
+    MatTableModule,
+    MatMenuModule,
+    MatCardModule,
+    AppRoutingModule,
+    RouterModule.forChild(Operations),
     
   ],
   providers: [],

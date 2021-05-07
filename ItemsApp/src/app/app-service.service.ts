@@ -21,6 +21,16 @@ export class AppServiceService {
       })
     );
     }
+  getProductsbyid(id:number): Observable<items>{
+    const apiurl = environment.apibaseurl+"/"+id;
+    const headers ={'content-type':'application/json'};
+    return this.http.get<items>(apiurl,{'headers':headers}).pipe(
+      tap((data)=>{console.log(data)}),
+      catchError((error)=>{
+        return throwError(error)
+      })
+    );
+    }
   createProducts(item:items): Observable<items[]>{
     const apiurl = environment.apibaseurl;
     const headers ={'content-type':'application/json'};

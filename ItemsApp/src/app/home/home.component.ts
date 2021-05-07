@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { AppServiceService } from '../app-service.service';
 import { items } from '../IItems';
 
@@ -18,6 +19,17 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.productsList=this.appservise.getProducts();
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.productsList = this.appservise.getProducts().pipe(switchMap(data =>
+      { 
+         return this.appservise.getProducts();
+    }))
+  }
+  deleteProduct(id:number){
+    this.appservise.deleteProducts(id).subscribe(
+      ()=>{this.productsList=this.appservise.getProducts()}
+    );
   }
 
 }

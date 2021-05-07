@@ -32,8 +32,14 @@
                 <div class="alert alert-danger"
                 *ngIf="!addproductform?.get('inStock')?.valid &&addproductform?.get('inStock')?.touched">Avaliability Required</div>
                 <br><br>
-            <button type="submit" [disabled]="addproductform.invalid" class="btn btn-info">Add</button>&nbsp;&nbsp;
-            <button type="button" (click)='reset()' class="btn btn-danger">Reset</button>
+            <!-- <button type="submit" [disabled]="addproductform.invalid" class="btn btn-info">Add</button>&nbsp;&nbsp;
+            <button type="button" (click)='reset()' class="btn btn-danger">Reset</button> -->
+            <button type="submit" [disabled]="addproductform.invalid" mat-fab color="accent"
+            aria-label="Example icon button with a delete icon">
+            <mat-icon>add_circle_outline</mat-icon></button>&nbsp;&nbsp;&nbsp;
+            <button type="button" (click)='reset()' mat-fab color="warn"
+                aria-label="Example icon button with a delete icon">
+                <mat-icon>restart_alt</mat-icon></button>
         </form>
     </div>
 </div>

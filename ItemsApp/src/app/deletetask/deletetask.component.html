@@ -4,23 +4,54 @@
     <div class="form-row" id="row1">
         <div class="form-group col-md-3"></div>
         <div class="form-group col-md-6">
-            <form (ngSubmit)='deletedata()' [formGroup]='deleteproductform' novalidate class="form">
-                Id :<input formControlName='id' type="number" class="form-control" placeholder="Eg: 1">
-                <div class="alert alert-danger"
-                    *ngIf="!deleteproductform?.get('id')?.valid && deleteproductform?.get('id')?.touched">Id
+            <form (ngSubmit)='findproduct()' [formGroup]='deleteproductform' novalidate class="form">
+                <div *ngIf='searchbarenable'>
+
+                    <mat-card style="background-color: darkolivegreen;color: darksalmon;">Id :<input formControlName='id' type="number" class="form-control" placeholder="Eg: 1">
+                        <!-- <div class="alert alert-danger"
+                            *ngIf="deleteproductform?.get('id')?.valid && deleteproductform?.get('id')?.touched">Id
                     Required
-                </div>
+                </div> -->
+            </mat-card>
+        </div>
                 <br><br>
-                <button type="submit" [disabled]="deleteproductform.invalid" mat-fab color="primary"
+                <div *ngIf="div">
+
+                    Title : <input formControlName='title' type="text" class="form-control" readonly>
+
+                    <br><br>
+                    Quantity : <input formControlName='quantity' type="number" class="form-control" readonly>
+
+                    <br><br>
+                    Price : <input formControlName='price' type="number" class="form-control" readonly>
+
+                    <br><br>
+                    Color : <input formControlName='color' type="text" class="form-control" readonly>
+
+                    <br><br>
+                    ExpiryDate : <input formControlName='expiryDate' type="text" class="form-control" readonly>
+
+                    <br><br>
+                    InStock : <input formControlName='inStock' type="boolean" class="form-control" readonly>
+
+                    <br><br>
+
+                </div>
+                <button type="button" (click)="findproduct()" *ngIf="y" [disabled]="deleteproductform.invalid" mat-fab
+                    color="primary" aria-label="Example icon button with a delete icon">
+                    <!-- Find -->
+                    <mat-icon>search</mat-icon>
+                </button>
+                <button type="button" (click)="deletedata()" mat-fab color="primary" *ngIf="x"
                     aria-label="Example icon button with a delete icon">
-                    <mat-icon>delete</mat-icon></button>&nbsp;&nbsp;&nbsp;
-                    <button type="button" (click)='reset()' mat-fab color="warn"
-                        aria-label="Example icon button with a delete icon">
-                        <mat-icon>restart_alt</mat-icon></button>
+                    <!-- Delete -->
+                    <mat-icon>delete</mat-icon>
+                </button>
+                &nbsp;&nbsp;&nbsp;
+                <button type="button" (click)='reset()' mat-fab color="warn"
+                    aria-label="Example icon button with a delete icon">
+                    <mat-icon>restart_alt</mat-icon>
+                </button>
             </form>
         </div>
     </div>
-    
-
-    
-

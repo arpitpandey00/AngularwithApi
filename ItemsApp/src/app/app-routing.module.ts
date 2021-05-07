@@ -3,11 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddtaskComponent } from './addtask/addtask.component';
 import { DeletetaskComponent } from './deletetask/deletetask.component';
 import { HomeComponent } from './home/home.component';
+import { ShowProductComponent } from './show-product/show-product.component';
 import { UpdatetaskComponent } from './updatetask/updatetask.component';
 
 const routes: Routes = [
-  {path:"Home",component:HomeComponent},
-  {path:"*",redirectTo:"home",pathMatch:"full"},
+  {path:'Home',component:HomeComponent},
+  {path:'',redirectTo:'Home',pathMatch:"full"},
   {
     path : 'add',
     component :AddtaskComponent
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path : 'update',
     component :UpdatetaskComponent
+  },
+  {
+    path : 'showProduct',
+    component : ShowProductComponent,
   },
   {
     path : 'detele',

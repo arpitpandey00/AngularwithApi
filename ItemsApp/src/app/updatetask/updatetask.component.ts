@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AppServiceService } from '../app-service.service';
 import { items } from '../IItems';
 function PriceRangeValidator(min: number, max: number): ValidatorFn {
@@ -18,13 +20,20 @@ function PriceRangeValidator(min: number, max: number): ValidatorFn {
 export class UpdatetaskComponent implements OnInit {
 
   itemupdate: items;
-  constructor(private appservice: AppServiceService) { }
+  itemUpdate: items;
+  Produt$Id: Observable<items>;
+  searchbarenable: boolean = true;
+  constructor(private appservice: AppServiceService, private route: ActivatedRoute) { }
   updateproductform: FormGroup;
   min: number = 1;
   max: number = 100000;
   stock: boolean;
+  x: boolean = false;
+  y: boolean = true;
+  div: boolean = false;
   ngOnInit(): void {
-    this.updateproductform = new FormGroup({      
+
+    this.updateproductform = new FormGroup({
       id: new FormControl(null, [Validators.required]),
       title: new FormControl(null, [Validators.required]),
       price: new FormControl(null, [PriceRangeValidator(this.min, this.max)]),
@@ -34,6 +43,48 @@ export class UpdatetaskComponent implements OnInit {
       inStock: new FormControl(true, [Validators.required])
     })
     this.booleanchecker();
+    this.itemupdate = this.updateproductform.value;
+    this.route.params.subscribe(
+      p => {
+
+        let rid = p.id as number;
+
+
+        if (isNaN(rid) == false) {
+
+          this.Produt$Id = this.appservice.getProductsbyid(rid);
+          this.Produt$Id.subscribe(data => {
+
+            if (data) {
+              this.searchbarenable = false;
+              this.div=true;
+              this.y=false;
+              this.x=true;
+             
+              this.updateproductform.get("title")?.setValue(data.title);
+              this.updateproductform.get("price")?.setValue(data.price);
+              this.updateproductform.get("quantity")?.setValue(data.quantity);
+              this.updateproductform.get("color")?.setValue(data.color);
+              this.updateproductform.get("expiryDate")?.setValue(data.expiryDate);
+              this.updateproductform.get("inStock")?.setValue(data.inStock);
+              this.updateproductform.get("id")?.setValue(rid);
+
+            }
+          });
+          
+          this.searchbarenable = true;
+
+        }
+        else if (isNaN(rid) == true) {
+          console.log("Value is Not a Number");
+        }
+     
+              this.div=false;
+              this.y=true;
+              this.x=false;
+              
+      }
+    );
   }
   booleanchecker() {
 
@@ -48,8 +99,25 @@ export class UpdatetaskComponent implements OnInit {
       }
     });
   }
+  findproduct() {
+    this.div = true;
+    this.x = true;
+    this.y = false;
+    this.itemUpdate = this.updateproductform.value;
+    this.appservice.getProductsbyid(this.itemUpdate.id).subscribe(
+      data => {
+        console.log(data);
+        this.updateproductform.get('title')?.setValue(data.title);
+        this.updateproductform.get('price')?.setValue(data.price);
+        this.updateproductform.get('quantity')?.setValue(data.quantity);
+        this.updateproductform.get('color')?.setValue(data.color);
+        this.updateproductform.get('expiryDate')?.setValue(data.expiryDate);
+        this.updateproductform.get('inStock')?.setValue(data.inStock);
+      }
+    );
+  }
   updatedata(): void {
-    this.itemupdate = this.updateproductform.value;
+
     let product1: items = {
       id: this.itemupdate.id,
       title: this.itemupdate.title,
@@ -60,11 +128,15 @@ export class UpdatetaskComponent implements OnInit {
       inStock: this.stock,
     }
     console.log(this.updateproductform.value);
-    this.appservice.putProducts(product1).subscribe(data => { });
+    this.appservice.putProducts(product1).subscribe();
     this.reset();
   }
   reset(): void {
+    this.x = false;
+    this.y = true;
+    this.div = false;
     this.updateproductform.reset();
+    this.searchbarenable=true;
   }
 
 

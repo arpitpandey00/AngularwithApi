@@ -1,4 +1,8 @@
-<h2 class="text-center">List With Observable</h2>
+<mat-card style="color: rgb(21, 21, 24);background-color: rgb(218, 129, 47);">
+
+    <h2 class="text-center">List With Subscribe</h2>
+</mat-card>
+<hr>
 <table class="table">
     <thead class="table table-dark">
         <tr>
@@ -8,16 +12,34 @@
             <th> EXPIRY DATE </th>
             <th> QUANTITY </th>
             <th> IN STOCK </th>
+            <th> DELETE PRODUCT </th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let item of allitems">
             <td>{{item.id}}</td>
-            <td>{{item.title}}</td>
+            <td><a [routerLink]="'/showProduct/'+item.id">{{item.title}}</a></td>
             <td>{{item.price }}</td>
             <td>{{item.expiryDate }}</td>
             <td>{{item.quantity}}</td>
-            <td>{{item.inStock}}</td>
+            <!-- <td>{{item.inStock}}</td> -->
+            <td>
+                <ng-container *ngIf="item.inStock; then instock else outofstock">
+
+                </ng-container>
+                <ng-template #instock>
+                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+
+                </ng-template>
+                <ng-template #outofstock>
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </ng-template>
+            </td>
+            <td >
+                <button mat-fab color="warn" (click)="deleteProduct(item.id)" aria-label="Example icon button with a delete icon">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
         </tr>
     </tbody>
 </table>

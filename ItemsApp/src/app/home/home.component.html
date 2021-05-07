@@ -1,11 +1,22 @@
-<h1 class="text-center">Fetching Data From Api</h1>
-<hr><br><br><br>
-<div class="row">
-    <div class="col-md-5">
-    <app-listwithobservable [items]='productsList'></app-listwithobservable>
-    </div>
-    <div class="col-md-2"></div>
-    <div class="col-md-5">
-    <app-listwithasyncpipe [item$]='productsList'></app-listwithasyncpipe>
-    </div>
-  </div>
+<mat-tab-group>
+  <mat-tab label="Subscribe">
+    <h1 class="text-center">Fetching Data From Api</h1>
+    <hr>
+    <app-listwithobservable [items]='productsList' (deleteEvent)='deleteProduct($event)'>
+    </app-listwithobservable>
+  </mat-tab>
+  <mat-tab label="Async">
+    <h1 class="text-center">Fetching Data From Api</h1>
+    <hr>
+    <app-listwithasyncpipe [item$]='productsList' (deleteEvent)='deleteProduct($event)'>
+
+    </app-listwithasyncpipe>
+  </mat-tab>
+  <mat-tab label="Mat-Table">
+    <h1 class="text-center">Fetching Data From Api</h1>
+    <hr>
+    <app-material [items]='productsList' (deleteEvent)='deleteProduct($event)'>
+
+    </app-material>
+  </mat-tab>
+</mat-tab-group>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { AppServiceService } from '../app-service.service';
@@ -14,6 +14,7 @@ export class ListwithobservableComponent implements OnChanges,OnInit{
 
   title = 'AppApi';
  @Input() items :Observable< items[]>;
+ @Output() deleteEvent : EventEmitter<any> = new EventEmitter<any>();
  allitems:items[]=[];
   itemssubscription:Subscription;
   constructor(private cd:ChangeDetectorRef,private appservice: AppServiceService,private route:ActivatedRoute)
@@ -22,7 +23,7 @@ export class ListwithobservableComponent implements OnChanges,OnInit{
     this.items=new Observable<items[]>();
   }
   ngOnInit(){
-    this.route.params.subscribe(p=>{console.log(p.id)})
+    this.route.params.subscribe(p=>{console.log(p.id)});
     this.itemssubscription=this.items.subscribe(
       data=>{
         this.allitems=data;
@@ -39,8 +40,9 @@ export class ListwithobservableComponent implements OnChanges,OnInit{
   ngOnChanges(): void {
     
     this.itemssubscription=this.items.subscribe(
-      data=>this.allitems=data)
-      this.cd.markForCheck();
+      data=>{this.allitems=data;
+      this.cd.markForCheck()});
+     
   }
   
   ngOnDestroy(){
@@ -50,7 +52,7 @@ export class ListwithobservableComponent implements OnChanges,OnInit{
     }
   }
   deleteProduct(id:number){
-    this.appservice.deleteProducts(id).subscribe();
+    this.deleteEvent.emit(id);
   }
 
 }
