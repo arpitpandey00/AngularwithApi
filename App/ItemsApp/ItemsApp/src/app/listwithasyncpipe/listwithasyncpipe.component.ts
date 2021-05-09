@@ -15,7 +15,7 @@ export class ListwithasyncpipeComponent implements OnInit {
   
   @Input() item$ : Observable<items[]>;
   @Output() deleteEvent : EventEmitter<any> = new EventEmitter<any>();
-  constructor(private appservice:AppServiceService) { 
+  constructor() { 
     this.item$ = new  Observable<items[]>();
   }
   ngOnInit(): void {
